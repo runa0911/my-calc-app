@@ -9,8 +9,18 @@ st.set_page_config(page_title="Fenice 金額検索", layout="centered")
 try:
     # ロゴ画像を読み込む
     image = Image.open('Feniceロゴ.jpg')
-    # 横幅いっぱいに表示（スマホに合わせて自動調整）
-    st.image(image, use_container_width=True)
+    
+    # 元のサイズを取得
+    width, height = image.size
+    
+    # 縦（高さ）を1/3にするための計算
+    # 高さを1/3にした時の、アスペクト比を維持した横幅を算出
+    new_height = height // 3
+    new_width = int(width * (new_height / height))
+    
+    # 画像を表示（算出した横幅を指定することで、比率を保ったまま1/3サイズになります）
+    st.image(image, width=new_width)
+    
 except FileNotFoundError:
     # 万が一画像がない場合はテキストを表示
     st.title("💰 Fenice 商品金額検索")
