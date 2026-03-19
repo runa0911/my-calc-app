@@ -7,22 +7,32 @@ st.set_page_config(page_title="Fenice 金額検索", layout="centered")
 
 # --- タイトル部分を画像に差し替え ---
 try:
-    # ロゴ画像を読み込む
     image = Image.open('Feniceロゴ.jpg')
-    
-    # 元のサイズを取得
     width, height = image.size
-    
-    # 縦（高さ）を1/3にするための計算
-    # 高さを1/3にした時の、アスペクト比を維持した横幅を算出
     new_height = height // 6
     new_width = int(width * (new_height / height))
     
-    # 画像を表示（算出した横幅を指定することで、比率を保ったまま1/3サイズになります）
+    # ロゴを表示
     st.image(image, width=new_width)
+
+    # CSSで余白を強制的に詰め、自作の線を入れる
+    st.markdown("""
+        <style>
+            /* ロゴ画像の直後の余白を消す */
+            .stImage {
+                margin-bottom: -20px;
+            }
+            /* 独自の区切り線スタイル */
+            .custom-line {
+                border-bottom: 1px solid #ddd;
+                margin-top: 0px;
+                margin-bottom: 20px;
+            }
+        </style>
+        <div class="custom-line"></div>
+    """, unsafe_allow_html=True)
     
-except FileNotFoundError:
-    # 万が一画像がない場合はテキストを表示
+except FileNotFoundError:    # 万が一画像がない場合はテキストを表示
     st.title("💰 Fenice 商品金額検索")
 st.divider() # 区切り線を入れる
 # -------------------------------------
