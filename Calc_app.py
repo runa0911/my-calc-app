@@ -34,7 +34,6 @@ try:
     
 except FileNotFoundError:    # 万が一画像がない場合はテキストを表示
     st.title("💰 Fenice 商品金額検索")
-st.divider() # 区切り線を入れる
 # -------------------------------------
 
 # 加算する金額の定義
