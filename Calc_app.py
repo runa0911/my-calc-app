@@ -1,10 +1,21 @@
 import streamlit as st
 import pandas as pd
+from PIL import Image # 画像を扱うためのライブラリを追加
 
 # ページの設定
-st.set_page_config(page_title="26SS 金額計算", layout="centered")
+st.set_page_config(page_title="Fenice 金額検索", layout="centered")
 
-st.title("💰 商品金額検索")
+# --- タイトル部分を画像に差し替え ---
+try:
+    # ロゴ画像を読み込む
+    image = Image.open('Feniceロゴ.jpg')
+    # 横幅いっぱいに表示（スマホに合わせて自動調整）
+    st.image(image, use_container_width=True)
+except FileNotFoundError:
+    # 万が一画像がない場合はテキストを表示
+    st.title("💰 Fenice 商品金額検索")
+st.divider() # 区切り線を入れる
+# -------------------------------------
 
 # 加算する金額の定義
 ADD_VALUES = {
@@ -13,7 +24,7 @@ ADD_VALUES = {
 
 @st.cache_data
 def load_data():
-    # items.xlsx を読み込み（3行目ヘッダー）
+    # items.xlsx を読み込み
     df = pd.read_excel('items.xlsx', header=2)
     df['品番'] = df['品番'].astype(str).str.strip()
     return df
@@ -45,8 +56,7 @@ try:
                             "税込(10%)": f"{calc_tax_in:,.0f}円"
                         })
                 
-                # 表（データフレーム）として表示
-                # use_container_width=True で横幅いっぱいに広げます
+                # 前回の表（テーブル）形式で表示
                 st.table(pd.DataFrame(display_data))
                 st.divider()
         else:
