@@ -15,7 +15,7 @@ try:
     
     # 縦（高さ）を1/3にするための計算
     # 高さを1/3にした時の、アスペクト比を維持した横幅を算出
-    new_height = height // 3
+    new_height = height // 6
     new_width = int(width * (new_height / height))
     
     # 画像を表示（算出した横幅を指定することで、比率を保ったまま1/3サイズになります）
