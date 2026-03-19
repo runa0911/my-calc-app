@@ -9,7 +9,7 @@ st.set_page_config(page_title="Fenice 金額検索", layout="centered")
 try:
     image = Image.open('Feniceロゴ.jpg')
     width, height = image.size
-    new_height = height // 3
+    new_height = height // 6
     new_width = int(width * (new_height / height))
     
     # CSSで全体を調整
