@@ -9,42 +9,22 @@ st.set_page_config(page_title="Fenice 金額検索", layout="centered")
 try:
     image = Image.open('Feniceロゴ.jpg')
     width, height = image.size
-    new_height = height // 6
+    new_height = height // 3
     new_width = int(width * (new_height / height))
     
-    # CSSで全体を調整
-    st.markdown(f"""
-        <style>
-            /* ロゴを中央に寄せる */
-            .logo-container {{
-                display: flex;
-                justify-content: center;
-                margin-bottom: 0px;
-            }}
-            /* 独自の区切り線（太さと色を調整） */
-            .custom-line {{
-                border-bottom: 2px solid #333; /* 少し太く、濃い色に */
-                margin-top: 5px;               /* ロゴとの隙間を少しだけ作る */
-                margin-bottom: 25px;            /* 線と検索ボックスの間の余白 */
-                width: 100%;
-            }}
-        </style>
-        <div class="logo-container">
-            <img src="data:image/jpeg;base64,{st.image(image, width=new_width)}" style="display:none;">
-        </div>
-    """, unsafe_allow_html=True)
-    
-    # 上記のCSSだと少し複雑になるため、よりシンプルで確実な方法に書き換えます
-    st.image(image, width=new_width) # ロゴ表示（標準機能）
+    # 中央寄せにするためのコンテナ
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        st.image(image, width=new_width)
 
+    # 余白を消して線を引く
     st.markdown("""
         <style>
-            /* 標準の画像表示の後の余白を削り、中央寄せを補佐 */
+            /* 画像の下にある標準の余白を強制的に消す */
             div[data-testid="stImage"] {
-                display: flex;
-                justify-content: center;
-                margin-bottom: -15px; 
+                margin-bottom: -25px !important;
             }
+            /* 区切り線のスタイル調整 */
             .custom-line {
                 border-bottom: 1.5px solid #ddd;
                 width: 100%;
